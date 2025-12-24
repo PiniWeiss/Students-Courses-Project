@@ -12,6 +12,7 @@ app.use((req, res, next) => {
 app.use(express.json())
 
 app.use("/students", students)
+// app.use("/students/:studentId/enrol", students)
 app.use("/courses", courses)
 
 app.listen(8000, () => console.log("listening on port 8000"))

@@ -1,11 +1,6 @@
 import fs from "fs/promises";
-import path from "path";
 
 const __dirname = process.cwd();
-
-
-
-
 
 async function fileExists(path) {
   try {
@@ -25,13 +20,16 @@ export async function readStudents() {
 
     return JSON.parse(data);
   } catch (error) {
-    // If file is corrupted or empty, return empty array
     return [];
   }
 }
 
 export async function writeStudents(students) {
-  await fs.writeFile(__dirname + "/data/students.json", JSON.stringify(students, null, 2), "utf8");
+  await fs.writeFile(
+    __dirname + "/data/students.json",
+    JSON.stringify(students, null, 2),
+    "utf8"
+  );
 }
 
 export async function readCourses() {
@@ -43,7 +41,6 @@ export async function readCourses() {
 
     return JSON.parse(data);
   } catch (error) {
-    // If file is corrupted or empty, return empty array
     return [];
   }
 }

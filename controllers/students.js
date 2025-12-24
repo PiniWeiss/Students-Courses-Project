@@ -1,7 +1,5 @@
-import {
-  readStudents, 
-  writeStudents,
-} from "../utils/utilityFunctions.js";
+import { ChildProcess } from "child_process";
+import { readStudents, writeStudents } from "../utils/utilityFunctions.js";
 
 export const getNextId = (students) => {
   if (!students || students.length === 0) {
@@ -103,9 +101,40 @@ export const deleteStudent = async (req, res) => {
       res.status(404).json({ success: false, data: {} });
     } else {
       students.splice(indexStudent, 1);
-      await writeStudents(students)
+      await writeStudents(students);
+      res.send({ success: true, data: {} });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, data: error.message });
+  }
+};
 
-      res.send({success: true, data: {}})
+export const courseEnrollment = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+    const { courseId } = req.params;
+    const studentIntId = parseInt(studentId);
+    const courseIntId = parseInt(courseId);
+    
+    if (isNaN(studentIntId))
+      throw new Error("Invalid id, please use an integer.");
+    if (isNaN(courseIntId))
+      throw new Error("Invalid id, please use an integer.");
+    const students = await readStudents();
+
+    const student = students.find((s) => s.id === studentIntId);
+    
+    const course = student.enrolledCourses.find(
+      (course) => course === courseIntId
+    );
+    if (course)
+      throw new Error("This course is allready in his enrolledCourses.");
+    if (!student) {
+      res.status(404).json({ success: false, data: {} });
+    } else {
+      student.enrolledCourses.push(courseIntId);
+      await writeStudents(students);
+      res.status(201).json({ success: true, data: student });
     }
   } catch (error) {
     res.status(500).json({ success: false, data: error.message });
