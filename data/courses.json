@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "JavaScript for Beginners",
+    "instructor": "David Smith",
+    "credits": 4
+  },
+  {
+    "id": 2,
+    "name": "Python for Beginnersssss",
+    "instructor": "Dana Rot",
+    "credits": 3
+  }
+]

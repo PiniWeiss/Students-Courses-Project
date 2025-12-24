@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "enrolledCourses": [
+      1,
+      3
+    ]
+  }
+]
